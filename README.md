@@ -43,7 +43,7 @@ This project explores borrower behavior and loan outcomes using Lending Club dat
 | `lending_club_loans_sample.csv` | Cleaned Lending Club loan data |
 | `lending_club_clustered.xlsx` | Data prepared for cluster visualization |
 | `lending_club_time_geo_ready.xlsx` | Data for time series and map visualizations |
-| `Exercise 6.7.twb` | Tableau workbook with all visualizations and storyboards |
+| `Storyboard` | Tableau workbook with all visualizations and storyboards |
 | `README.md` | This documentation file |
 
 ---

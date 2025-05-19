@@ -51,7 +51,7 @@ This project explores borrower behavior and loan outcomes using Lending Club dat
 ## Visualizations
 
 You can view the full interactive dashboard on Tableau Public:  
-🔗 [View Dashboard on Tableau Public](#) *(replace with your actual link)*
+🔗 [View Dashboard on Tableau Public](https://public.tableau.com/app/profile/jacques.van.rensburg/viz/LendingClubLoanAnalysisBorrowerSegmentsRiskTrends/Storyboard?publish=yes) 
 
 ---
 

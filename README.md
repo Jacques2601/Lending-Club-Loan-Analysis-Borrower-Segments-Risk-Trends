@@ -1,90 +1,72 @@
-# Lending-Club-Loan-Analysis-Borrower-Segments-Risk-Trends
-This project analyzes Lending Club loan data using clustering, time series, and geospatial methods to uncover patterns in interest rates, volumes, and default risk. Tableau visualizations support strategic insights on borrower segments, regional trends, and risk management.
+# Lending Club | Borrower Segmentation & Loan Analytics
 
-# Lending Club Loan Analysis: Borrower Segments & Risk Trends
+## Business objective
 
-This project explores borrower behavior and loan outcomes using Lending Club data. By applying clustering, time series, and geospatial analysis, it uncovers patterns in interest rates, loan volumes, and default risk. Tableau visualizations support strategic recommendations for borrower segmentation, regional trends, and portfolio risk management.
+A CareerFoundry Data Analytics portfolio project exploring historical Lending Club loan records to understand borrower characteristics, lending terms and regional patterns. The analysis demonstrates data preparation at scale, exploratory modelling, customer segmentation and business intelligence. It is not a validated credit scoring or default prediction system.
 
----
+[View the interactive Tableau storyboard](https://public.tableau.com/app/profile/jacques.van.rensburg/viz/LendingClubLoanAnalysisBorrowerSegmentsRiskTrends/Storyboard?publish=yes)
 
-## Project Objectives
+## Data and analytical scope
 
-- Identify borrower segments using KMeans clustering
-- Analyze interest rate differences by loan status
-- Track changes in loan volume over time
-- Explore regional loan patterns across U.S. states
-- Provide actionable recommendations for risk management
+The saved data-cleaning notebook reports 2,260,669 records and 112 variables after cleaning. The clustering experiment retains 1,001,574 records and 83 numeric features after missing-data filtering. These counts describe the original notebook runs, not the smaller CSV included in this repository.
 
----
+## Key findings
 
-## Key Insights
+### Borrower segmentation
 
-- **Conservative borrowers** are more likely to fully repay or remain current on loans.
-- **Stretched borrowers** have a higher likelihood of default.
-- **Fully Paid loans** are declining in recent years, while **Current loans** are rising.
-- **Alaska** has the highest average loan amount; **Hawaii** the lowest.
-- Seasonal and regional patterns can inform funding strategies.
+The KMeans experiment standardises numeric features and uses the elbow method to select three clusters. Saved calculated medians are shown below (USD).
 
----
+| Cluster | Records | Median loan amount | Median annual income | Median interest rate |
+| --- | ---: | ---: | ---: | ---: |
+| 0 | 555,479 | $10,000 | $56,400 | 12.62% |
+| 1 | 212,309 | $13,400 | $77,000 | 12.62% |
+| 2 | 233,786 | $27,000 | $100,000 | 12.62% |
 
-## Analytical Methods
+The clusters differ in median loan size and income, but these summaries do not establish default probabilities or creditworthiness. The original notebook's narrative contains conflicting median values; this table uses its calculated output instead.
 
-- **KMeans clustering** (Python - scikit-learn)
-- **Data cleaning and transformation** (pandas)
-- **Time series and geospatial prep** (Python & Excel)
-- **Interactive visualizations** (Tableau Public)
+### Interest-rate regression
 
----
+A univariate linear regression tests whether loan amount alone explains interest rates, using a 70/30 random train/test split. Saved test results: R² = 0.0093; MSE = 23.04 (squared percentage points). Loan amount alone explains less than 1% of the observed test-set variation. This negative result motivates evaluating additional appropriate features rather than deploying the model.
 
-## Files Included
+### Geographic and time-series analysis
 
-| File | Description |
-|------|-------------|
-| `lending_club_loans_sample.csv` | Cleaned Lending Club loan data |
-| `lending_club_clustered.xlsx` | Data prepared for cluster visualization |
-| `lending_club_time_geo_ready.xlsx` | Data for time series and map visualizations |
-| `Storyboard` | Tableau workbook with all visualizations and storyboards |
-| `README.md` | This documentation file |
+The geographic notebook aggregates mean interest rates by US state and creates a Folium choropleth. The Tableau storyboard provides additional exploratory lending visualisations. The separate time-series notebook demonstrates seasonal decomposition, differencing and Augmented Dickey-Fuller testing on US unemployment data (1980–2008); it does not establish a relationship between unemployment and Lending Club outcomes.
 
----
+## Notebook guide
 
-## Visualizations
+| Notebook | Purpose |
+| --- | --- |
+| [1. Sourcing open data](1.%20Sourcing%20Open%20Data.ipynb) | Data loading and cleaning |
+| [2. Exploring relationships](2.%20Exploring%20Relationships.ipynb) | Exploratory analysis and correlations |
+| [3. Geographical visualisations](3.%20Geographical%20Visualizations%20with%20Python.ipynb) | State-level interest-rate mapping |
+| [4. Supervised regression](4.%20Supervised%20Machine%20Learning%20Regression.ipynb) | Interest-rate regression and evaluation |
+| [5. Unsupervised clustering](5.%20Unsupervised%20Machine%20Learning%20Clustering.ipynb) | Standardisation, KMeans and cluster profiling |
+| [6. Time-series analysis](6.%20Sourcing%20and%20Analyzing%20Time%20Series%20Data.ipynb) | Separate unemployment-series exercise |
 
-You can view the full interactive dashboard on Tableau Public:  
-🔗 [View Dashboard on Tableau Public](https://public.tableau.com/app/profile/jacques.van.rensburg/viz/LendingClubLoanAnalysisBorrowerSegmentsRiskTrends/Storyboard?publish=yes) 
+## Repository files
 
----
+- `lending_club_loans_sample.csv` — loan data sample.
+- `lending_club_clustered.xlsx` — prepared clustering visualisation data.
+- `lending_club_time_geo_ready.xlsx` — prepared temporal and geographic visualisation data.
+- `Storyboard.twb` — Tableau workbook.
 
-## Tools Used
+## Reproducibility and limitations
 
-- **Python** (pandas, scikit-learn, datetime)
-- **Jupyter Notebook**
-- **Tableau Public**
-- **Excel** (for light formatting)
+The original notebooks and saved outputs are preserved. Results have not been independently reproduced. The notebooks reference local Windows paths and full source/cleaned CSV files that are not included under those filenames. The included sample is not a verified drop-in replacement for the full dataset. Exact source version, redistribution permissions and dependency versions require verification.
 
----
+Core tools: Python, pandas, NumPy, scikit-learn, Matplotlib, seaborn, Folium, statsmodels, Jupyter, Excel and Tableau.
 
-## Future Recommendations
+Before extending the analysis:
 
-- Incorporate **credit scores** and **payment history** for deeper risk insights
-- Use **logistic regression** to predict loan default probability
-- Monitor **seasonal** and **regional** trends to align lending strategy
-- Tailor loan offers based on **cluster profiles**
+- Reconcile notebook narrative, exported cluster data and dashboard labels.
+- Audit feature availability at origination; exclude post-origination information for any prospective risk model.
+- Assess missing-data selection bias, redundant features, outliers and cluster stability.
+- Compare loan outcomes using appropriate denominators and comparable loan vintages or observation windows. Recent loans may not have matured.
+- Validate regional summaries against sample sizes and source data; geographic association is not causation.
+- Document dataset provenance and portable paths, then rerun with a reproducible environment.
 
----
+## Business relevance
 
-## Limitations
+The project illustrates how exploratory analytics can identify questions for lending portfolio monitoring, segmentation and reporting. Any lending decision or default-risk application would require separate outcome validation, temporal testing, fairness assessment and domain review.
 
-- Credit scores and employment history were not included
-- The dataset reflects a single time snapshot
-- KMeans clustering assumes fixed, equally spaced clusters
-- Dataset only includes **approved** Lending Club applicants
-
----
-
-## Contact
-
-**Author:** Jacques van Rensburg  
-If you have questions or suggestions, feel free to reach out via GitHub.
-
----
+**Author:** Jacques van Rensburg
